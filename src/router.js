@@ -9,6 +9,8 @@ import Login from "./views/Login.vue";
 import Dashboard from "./views/Dashboard.vue";
 import Admin from "./views/Admin.vue";
 
+import Success from './views/Success.vue';
+
 const routes = [
   { path: "/", component: Home },
 
