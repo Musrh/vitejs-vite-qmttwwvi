@@ -9,7 +9,7 @@ import Login from "./views/Login.vue";
 import Dashboard from "./views/Dashboard.vue";
 import Admin from "./views/Admin.vue";
 
-import Success from './views/Success.vue';
+import Panier from './views/Panier.vue'
 
 const routes = [
   { path: "/", component: Home },
@@ -33,6 +33,8 @@ const routes = [
     component: Admin,
     meta: { requiresAdmin: true }
   },
+
+{ path: '/panier', name: 'Panier', component: Panier },
 
 {
   path: "/success",
