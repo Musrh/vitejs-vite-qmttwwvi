@@ -1,44 +1,34 @@
-<template>
-<div class="success-page">
-  <h2>🎉 Paiement réussi !</h2>
-  <p>Merci pour votre commande. Votre paiement a été accepté.</p>
-  <router-link to="/panier">
-    Retour au panier
-  </router-link>
-</div>
-</template>
-
 <script>
+import { onMounted, ref } from "vue"
+
 export default {
-name: "Success"
+  setup() {
+    const session = ref(null)
+
+    onMounted(async () => {
+      const urlParams = new URLSearchParams(window.location.search)
+      const sessionId = urlParams.get("session_id")
+
+      if (sessionId) {
+        // Appelle ton backend pour récupérer les infos de la session
+        const res = await fetch(`https://stripe-backend-production-2ac4.up.railway.app/session/${sessionId}`)
+        const data = await res.json()
+        session.value = data
+        console.log("Session Stripe :", data)
+      }
+    })
+
+    return { session }
+  }
 }
 </script>
 
-<style scoped>
-.success-page {
-text-align: center;
-margin-top: 50px;
-}
+<template>
+  <div>
+    <h2>🎉 Paiement réussi !</h2>
+    <p v-if="session">Merci pour votre commande, montant payé : {{ session.amount_total / 100 }} €</p>
+    <p v-else>Chargement...</p>
+    <router-link to="/panier">Retour au panier</router-link>
+  </div>
+</template>
 
-.success-page h2 {
-color: green;
-}
-
-.success-page p {
-margin: 15px 0;
-}
-
-.success-page a {
-display: inline-block;
-margin-top: 20px;
-padding: 10px 20px;
-background-color: #42b983;
-color: white;
-border-radius: 6px;
-text-decoration: none;
-}
-
-.success-page a:hover {
-background-color: #369870;
-}
-</style>
