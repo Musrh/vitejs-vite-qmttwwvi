@@ -1,4 +1,3 @@
-
 <template>
   <nav>
     <button @click="showPanier = !showPanier">Panier</button>
